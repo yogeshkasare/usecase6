@@ -1,18 +1,22 @@
-name: Lint yml 
+name: Lint YAML Files
 
 on:
- push: 
-   branches:
-     - main
-   
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  log:
+  lint:
     runs-on: ubuntu-latest
+
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@v3
-      - name: Event received
-        run: echo "Event received"
-      - name: 'Yamllint'
-        uses: karancode/yamllint-github-action@master
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run Yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml
